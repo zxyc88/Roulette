@@ -4,4 +4,5 @@ public class RouletteWheel {
 
 
     private List<wheekNumber> wheelNumberList;
+    private int okay;
 }
