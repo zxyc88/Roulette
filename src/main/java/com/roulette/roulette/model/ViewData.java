@@ -2,15 +2,20 @@ package com.roulette.roulette.model;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
 public class ViewData {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @ManyToOne
+    @JoinColumn(name = "dealer_id")
     private Dealer dealer;
+
     @Column(name="start_at")
     private Integer startAt;
+
     @Column(name="finish_at")
     private Integer finishAt;
 

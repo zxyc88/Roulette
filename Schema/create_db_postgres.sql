@@ -6,8 +6,8 @@ CREATE TABLE roulette."dealers"
 
 CREATE TABLE roulette."view_data"
 (
-    id int auto_increment
-	dealer varchar(255) NOT NULL,
+    id int auto_increment,
+	  dealer_id int(11) NOT NULL,
     start_at numeric(5) ,
     finish_at numeric(5) e,
 )

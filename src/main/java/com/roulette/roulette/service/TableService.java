@@ -11,8 +11,8 @@ import java.util.List;
 @Service
 public class TableService {
 
-//    @Autowired
-//    DealerRepository dealerRepository;
+    @Autowired
+    DealerRepository dealerRepository;
 
     private static List<ViewData> data = new ArrayList<>();
     private RouletteWheel rouletteWheel = new RouletteWheel();
@@ -37,18 +37,16 @@ public class TableService {
 
     public List<Dealer> getDealers()
     {
-//        return dealerRepository.findAll();
-        return new ArrayList<>();
+        return dealerRepository.findAll();
     }
 
     public List<Dealer> addDealer(Dealer dealer){
-//        Dealer dealerInDb = dealerRepository.findByName(dealer.getName());
-//        if (dealerInDb == null){
-//            Dealer dealerToSave = new Dealer(dealer.getName());
-//            dealerRepository.save(dealerToSave);
-//        }
-//        return getDealers();
-        return new ArrayList<>();
+        Dealer dealerInDb = dealerRepository.findByName(dealer.getName());
+        if (dealerInDb == null){
+            Dealer dealerToSave = new Dealer(dealer.getName());
+            dealerRepository.save(dealerToSave);
+        }
+        return getDealers();
     }
 
 }
