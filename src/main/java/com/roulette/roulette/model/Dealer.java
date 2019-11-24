@@ -9,9 +9,14 @@ public class Dealer {
 
     public int inTheZone() {
         //Method to return the time that is best to Bet and Dealer is IN THE ZONE
+        //Optimal time for dealer to heat up and get in their rhythm but still far from a break or end of shift
         return 0;
     }
 
+
+    public Dealer (String name){
+        this.name = name;
+    }
 
     public String getName() {
         return name;
