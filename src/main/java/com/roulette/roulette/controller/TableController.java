@@ -1,7 +1,5 @@
 package com.roulette.roulette.controller;
 
-import com.roulette.roulette.model.Block;
-import com.roulette.roulette.model.Colour;
 import com.roulette.roulette.model.Table;
 import com.roulette.roulette.service.TableService;
 import org.springframework.beans.factory.annotation.Autowired;

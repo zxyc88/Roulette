@@ -4,8 +4,9 @@ import java.util.List;
 
 public class Table {
 
+    private Dealer dealer;
     private int id;
-    private List<Block> blocks;
+    private List<Block> hitNumbers;
 
     public int getId() {
         return id;
@@ -15,11 +16,11 @@ public class Table {
         this.id = id;
     }
 
-    public List<Block> getBlocks() {
-        return blocks;
+    public List<Block> getHitNumbers() {
+        return hitNumbers;
     }
 
-    public void setBlocks(List<Block> blocks) {
-        this.blocks = blocks;
+    public void setHitNumbers(List<Block> hitNumbers) {
+        this.hitNumbers = hitNumbers;
     }
 }
