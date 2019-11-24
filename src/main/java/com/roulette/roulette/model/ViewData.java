@@ -1,23 +1,49 @@
 package com.roulette.roulette.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+//@Entity
 public class ViewData {
 
-    private Integer startedAt;
-    private String dealerName;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private Dealer dealer;
+    private Integer startAt;
+    private Integer finishAt;
 
-    public Integer getStartedAt() {
-        return startedAt;
+    public long getId() {
+        return id;
     }
 
-    public void setStartedAt(Integer startedAt) {
-        this.startedAt = startedAt;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getDealerName() {
-        return dealerName;
+    public Integer getStartAt() {
+        return startAt;
     }
 
-    public void setDealerName(String dealerName) {
-        this.dealerName = dealerName;
+    public void setStartAt(Integer startAt) {
+        this.startAt = startAt;
+    }
+
+    public Dealer getDealer() {
+        return dealer;
+    }
+
+    public void setDealer(Dealer dealer) {
+        this.dealer = dealer;
+    }
+
+    public Integer getFinishAt() {
+        return finishAt;
+    }
+
+    public void setFinishAt(Integer finishAt) {
+        this.finishAt = finishAt;
     }
 }

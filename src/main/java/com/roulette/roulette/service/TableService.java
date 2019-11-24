@@ -1,9 +1,8 @@
 package com.roulette.roulette.service;
 
-import com.roulette.roulette.model.Block;
-import com.roulette.roulette.model.Dealer;
-import com.roulette.roulette.model.DealerData;
-import com.roulette.roulette.model.Table;
+import com.roulette.roulette.model.*;
+import com.roulette.roulette.repository.DealerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,16 +11,10 @@ import java.util.List;
 @Service
 public class TableService {
 
-    private static List<Table> tables = new ArrayList<>();
+//    @Autowired
+//    DealerRepository dealerRepository;
 
-    public void addTable(Table table)
-    {
-        tables.add(table);
-    }
-
-    public List<Table> getTables(){
-        return tables;
-    }
+    private static List<ViewData> data = new ArrayList<>();
 
     public List<Block> viewNumber(Block block, Dealer dealer){
         List<Block> bestNumbers = new ArrayList<>();
@@ -35,5 +28,26 @@ public class TableService {
         return bestNumbers;
     }
 
+    public List<ViewData> addData(ViewData viewdata)
+    {
+        data.add(viewdata);
+        return data;
+    }
+
+    public List<Dealer> getDealers()
+    {
+//        return dealerRepository.findAll();
+        return new ArrayList<>();
+    }
+
+    public List<Dealer> addDealer(Dealer dealer){
+//        Dealer dealerInDb = dealerRepository.findByName(dealer.getName());
+//        if (dealerInDb == null){
+//            Dealer dealerToSave = new Dealer(dealer.getName());
+//            dealerRepository.save(dealerToSave);
+//        }
+//        return getDealers();
+        return new ArrayList<>();
+    }
 
 }

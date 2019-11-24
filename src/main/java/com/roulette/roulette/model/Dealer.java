@@ -1,7 +1,16 @@
 package com.roulette.roulette.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+//@Entity
 public class Dealer {
 
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String name;
     private int startTime;
     private int endTime;
@@ -12,7 +21,6 @@ public class Dealer {
         //Optimal time for dealer to heat up and get in their rhythm but still far from a break or end of shift
         return 0;
     }
-
 
     public Dealer (String name){
         this.name = name;

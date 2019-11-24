@@ -24,22 +24,28 @@ public class TableController {
         System.out.println("Test: " + table.toString());
     }
 
-    @RequestMapping(value="/add" , method = RequestMethod.POST)
-    public @ResponseBody Table addNumber (@RequestBody Table table){
-        tableService.addTable(table);
-        return table;
+    @RequestMapping(value="/addData" , method = RequestMethod.POST)
+    public @ResponseBody List<ViewData> addData (@RequestBody ViewData viewdata){
+        return tableService.addData(viewdata);
     }
 
-    @RequestMapping(value="/get", method = RequestMethod.GET)
-    public @ResponseBody List<Table> printTable ()
-    {
-        return tableService.getTables();
+    @RequestMapping(value="/addDealer" , method = RequestMethod.POST)
+    public @ResponseBody List<Dealer> addData (@RequestBody Dealer dealer){
+        return tableService.addDealer(dealer);
     }
+
 
     @RequestMapping(value="/viewData", method = RequestMethod.GET)
     public @ResponseBody List<Block> viewData (@RequestBody ViewData viewdata){
-        Dealer dealer = new Dealer(viewdata.getDealerName());
-        Block block = new Block(viewdata.getStartedAt().toString());
+        Dealer dealer = new Dealer(viewdata.getDealer().getName());
+        Block block = new Block(viewdata.getStartAt().toString());
         return tableService.viewNumber(block,dealer);
     }
+
+    @RequestMapping(value="/getDealers", method = RequestMethod.GET)
+    public @ResponseBody List<Dealer> getDealers ()
+    {
+        return tableService.getDealers();
+    }
+
 }

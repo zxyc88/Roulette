@@ -4,8 +4,7 @@ import static com.roulette.roulette.model.Colour.BLACK;
 import static com.roulette.roulette.model.Colour.RED;
 import static com.roulette.roulette.model.Colour.GREEN;
 
-public class Block extends RouletteWheel{
-
+public class Block {
         private String number;
         private Colour colour;
 
