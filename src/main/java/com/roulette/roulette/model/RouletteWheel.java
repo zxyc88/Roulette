@@ -51,4 +51,8 @@ public class RouletteWheel {
         wheelNumbers.add(new Block("13"));
         wheelNumbers.add(new Block("1"));
     }
+
+    public static ArrayList<Block> getWheelNumbers() {
+        return wheelNumbers;
+    }
 }

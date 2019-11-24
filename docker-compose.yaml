@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:11.5-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER:  'test'
+      POSTGRES_PASSWORD: 'test'
+      POSTGRES_DB: 'roulette'
+    volumes:
+      - ./schema/create_db_postgres.sql:/docker-entrypoint-initdb.d/init.sql

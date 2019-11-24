@@ -15,6 +15,7 @@ public class TableService {
 //    DealerRepository dealerRepository;
 
     private static List<ViewData> data = new ArrayList<>();
+    private RouletteWheel rouletteWheel = new RouletteWheel();
 
     public List<Block> viewNumber(Block block, Dealer dealer){
         List<Block> bestNumbers = new ArrayList<>();
