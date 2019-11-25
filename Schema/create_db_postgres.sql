@@ -1,13 +1,14 @@
-CREATE TABLE roulette."dealers"
+CREATE TABLE public."dealers"
 (
-    id int auto_increment,
-	name varchar(255) NOT NULL,
-)
+    id serial primary key,
+	name varchar(255) NOT NULL
+);
 
-CREATE TABLE roulette."view_data"
+
+CREATE TABLE public."view_data"
 (
-    id int auto_increment,
-	  dealer_id int(11) NOT NULL,
-    start_at numeric(5) ,
-    finish_at numeric(5) ,
-)
+    id serial primary key,
+	dealer_id integer NOT NULL REFERENCES dealers (id),
+    start_at numeric(5),
+    finish_at numeric(5)
+);
