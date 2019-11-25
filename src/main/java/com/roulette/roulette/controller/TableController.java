@@ -25,8 +25,9 @@ public class TableController {
     }
 
     @RequestMapping(value="/addData" , method = RequestMethod.POST)
-    public @ResponseBody List<ViewData> addData (@RequestBody ViewData viewdata){
-        return tableService.addData(viewdata);
+    public @ResponseBody String addData (@RequestBody ViewData viewdata){
+        tableService.addData(viewdata);
+        return "cool";
     }
 
     @RequestMapping(value="/addDealer" , method = RequestMethod.POST)
@@ -37,9 +38,7 @@ public class TableController {
 
     @RequestMapping(value="/viewData", method = RequestMethod.GET)
     public @ResponseBody List<Block> viewData (@RequestBody ViewData viewdata){
-        Dealer dealer = new Dealer(viewdata.getDealer().getName());
-        Block block = new Block(viewdata.getStartAt().toString());
-        return tableService.viewNumber(block,dealer);
+        return tableService.viewNumber(viewdata);
     }
 
     @RequestMapping(value="/getDealers", method = RequestMethod.GET)

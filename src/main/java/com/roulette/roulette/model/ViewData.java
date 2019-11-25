@@ -2,14 +2,14 @@ package com.roulette.roulette.model;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "view_data")
 public class ViewData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "dealer_id")
     private Dealer dealer;
 
@@ -18,6 +18,9 @@ public class ViewData {
 
     @Column(name="finish_at")
     private Integer finishAt;
+
+    @Column(name="delta")
+    private Double delta;
 
     public long getId() {
         return id;

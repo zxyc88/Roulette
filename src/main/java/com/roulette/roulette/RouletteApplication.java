@@ -16,8 +16,8 @@ public class RouletteApplication {
 	public static void main(String[] args) {
 		Properties properties = new Properties();
 		SpringApplication app = new SpringApplication(RouletteApplication.class);
-		properties.setProperty("spring.resources.static-locations", "file:/app/ui/");
-		app.setDefaultProperties(properties);
+//		properties.setProperty("spring.resources.static-locations", "file:/app/ui/");
+//		app.setDefaultProperties(properties);
 		app.run(args);
 	}
 
