@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TableService {
+public class RouletteService {
 
     @Autowired
     DealerRepository dealerRepository;
@@ -21,9 +21,7 @@ public class TableService {
     @Autowired
     DataService dataService;
 
-    private static List<ViewData> data = new ArrayList<>();
-
-    public List<Block> viewNumber(ViewData viewData){
+    public List<Block> getData(ViewData viewData){
         List<Block> bestNumbers = new ArrayList<>();
         Dealer dealer = dealerRepository.findByName(viewData.getDealer().getName());
         List<ViewData> viewDatas = viewDataRepository.findByDealer(dealer);
@@ -31,14 +29,19 @@ public class TableService {
         return bestNumbers;
     }
 
-    public void addData(ViewData viewdata)
+    public boolean addData(ViewData viewdata)
     {
         Dealer dealer = dealerRepository.findByName(viewdata.getDealer().getName());
         if (dealer != null) {
             viewdata.setDealer(dealer);
-            viewDataRepository.save(viewdata);
+            ViewData viewData = viewDataRepository.save(viewdata);
+            if (viewData == null){
+                return false;
+            }
             dataService.addMathematics(viewdata);
+            return true;
         }
+        return false;
     }
 
     public List<Dealer> getDealers()
