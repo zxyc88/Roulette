@@ -21,6 +21,10 @@ public class DataService {
 
     public List<Block> bestNumbers(List<ViewData> viewData){
         List<Block> numbers = new ArrayList<>();
+        for(ViewData data: viewData){
+            numbers.add(new Block(data.getStartAt().toString()));
+            numbers.add(new Block(data.getFinishAt().toString()));
+        }
 
         //LOGIC HERE
         //Given all INFO fully,

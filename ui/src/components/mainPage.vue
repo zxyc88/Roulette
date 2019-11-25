@@ -27,8 +27,9 @@
                            <v-list-item
                              v-for="(item, index) in dealers"
                              :key="index"
+                             @click="selectedDealer(item.name)"
                            >
-                             <v-list-item-title>{{ item.dealer }}</v-list-item-title>
+                             <v-list-item-title>{{ item.name }}</v-list-item-title>
                            </v-list-item>
                          </v-list>
                        </v-menu>
@@ -42,40 +43,32 @@
          <v-list-item-action>
                   <v-icon>mdi-football</v-icon>
          </v-list-item-action>
-                  <v-list-item-content>
+         <v-list-item-content>
                     <v-list-item-title>
                          <v-text-field
                                                     placeholder="thrown at"
-                                                    v-model="test"
+                                                    v-model="startAt"
                                                     single-line
-                                                  ></v-text-field>
+                                                   ></v-text-field>
                     </v-list-item-title>
-                  </v-list-item-content>
-        </v-list-item>
+                          <v-btn rounded color="error" dark @click="addData(startAt, finishAt)">Add Data</v-btn>
 
-        <v-list-item>
-         <v-list-item-action>
-                  <v-icon>mdi-apple</v-icon>
-         </v-list-item-action>
-                  <v-list-item-content>
-                    <v-list-item-title>
-                         <v-text-field
-                                                    placeholder="landed at"
-                                                    v-model="test"
-                                                    single-line
-                                                  ></v-text-field>
-                    </v-list-item-title>
-                  </v-list-item-content>
-        </v-list-item>
 
-        <v-list-item>
-                 <v-list-item-action>
-                          <v-icon>mdi-apple</v-icon>
-                 </v-list-item-action>
-                 <v-list-item-title>
-                     <v-btn rounded color="error" dark @click="removeAll">Add Number</v-btn>
-                 </v-list-item-title>
-        </v-list-item>
+                     <v-list-item-content>
+                                        <v-list-item-title>
+                                             <v-text-field
+                                              placeholder="finish at"
+                                              v-model="finishAt"
+                                              single-line
+                                              ></v-text-field>
+                                        </v-list-item-title>
+                                        <v-btn rounded color="green" dark @click="getData(finishAt)">View Data</v-btn>
+                                      </v-list-item-content>
+         </v-list-item-content>
+
+         </v-list-item>
+
+
 
        <br><br><br><br><br><br><br>
        <v-list-item>
@@ -86,22 +79,13 @@
                     <v-list-item-title>
                          <v-text-field
                                                     placeholder="Dealer Name"
-                                                    v-model="test"
+                                                    v-model="dealer"
                                                     single-line
                                                   ></v-text-field>
                     </v-list-item-title>
+                     <v-btn rounded color="warning" dark @click="addDealer(dealer)">Add Dealer</v-btn>
                   </v-list-item-content>
         </v-list-item>
-
-        <v-list-item>
-                 <v-list-item-action>
-                          <v-icon>mdi-tennis</v-icon>
-                 </v-list-item-action>
-                 <v-list-item-title>
-                     <v-btn rounded color="warning" dark @click="removeAll">Add Dealer</v-btn>
-                 </v-list-item-title>
-        </v-list-item>
-
 
       </v-list>
     </v-navigation-drawer>
@@ -129,11 +113,11 @@
               <v-subheader>Numbers</v-subheader>
               <v-list-item-group v-model="item" color="primary">
                 <v-list-item
-                  v-for="(item, i) in items"
+                  v-for="(item, i) in data"
                   :key="i"
                 >
                   <v-list-item-icon>
-                    <v-icon v-text="item.icon"></v-icon>
+                    <v-icon v-text="item.number"></v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title v-text="item.text"></v-list-item-title>
@@ -154,23 +138,51 @@
 </template>
 
 <script>
+import http from "../http-common";
+
   export default {
     props: {
       source: String,
     },
- data: () => ({
-        item: 1,
-        items: [
-          { text: '23 - 15%', icon: 'mdi-clock' },
-          { text: '15', icon: 'mdi-account' },
-          { text: '7', icon: 'mdi-flag' },
-        ],
-        dealers: [
-            { dealer: 'bob' }
-        ]
-      }),
+      data() {
+              return {
+                  dealers: [],
+                  data: []
+              };
+          },
+      methods: {
+      getData(start) {
+                    var params = "/getData?dealer="+this.selectedDealer+"&start="+start;
+                    http.get(params)
+                            .then(response => {
+                            this.data = response.data;
+                        })
+                },
+      addData(start, finish) {
+            var params = {"dealer":this.selectedDealer, "startAt":start, "finishAt":finish};
+            http.post("/addData",params)
+                                        .then(response => {
+                                        this.data = response.data;
+                                    })
+      },
+      selectedDealer(name){
+        this.selectedDealer = name;
+      },
+      addDealer(name){
+            var params = {"name":name};
+            http.post("/addDealer",params)
+                 .then(response => {
+                 this.data = response.data;
+             });
+      }
+
+      },
     created () {
-      this.$vuetify.theme.dark = true
-    },
+      this.$vuetify.theme.dark = true;
+      this.dealers =  http.get("/getDealers")
+                                                     .then(response => {
+                                                         this.dealers = response.data;
+                                                     })
+    }
   }
 </script>

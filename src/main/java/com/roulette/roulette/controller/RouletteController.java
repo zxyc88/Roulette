@@ -22,8 +22,11 @@ public class RouletteController {
     }
 
     @RequestMapping(value="/getData", method = RequestMethod.GET)
-    public @ResponseBody List<Block> getData(@RequestBody ViewData viewdata){
-        return rouletteService.getData(viewdata);
+    public @ResponseBody List<Block> getData(@RequestParam String dealer,  @RequestParam int start){
+        ViewData viewData = new ViewData();
+        viewData.setDealer(new Dealer(dealer));
+        viewData.setStartAt(start);
+        return rouletteService.getData(viewData);
     }
 
     @RequestMapping(value="/addDealer" , method = RequestMethod.POST)

@@ -22,11 +22,9 @@ public class RouletteService {
     DataService dataService;
 
     public List<Block> getData(ViewData viewData){
-        List<Block> bestNumbers = new ArrayList<>();
         Dealer dealer = dealerRepository.findByName(viewData.getDealer().getName());
         List<ViewData> viewDatas = viewDataRepository.findByDealer(dealer);
-        dataService.bestNumbers(viewDatas);
-        return bestNumbers;
+        return dataService.bestNumbers(viewDatas);
     }
 
     public boolean addData(ViewData viewdata)

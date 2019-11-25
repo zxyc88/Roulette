@@ -6,6 +6,7 @@
 4. `vue add vuetify` adds veutify to ui
 5. `npm run serve` runs the UI  
 6. `npm install --save vue-router` 
+7.  `npm install --save axios`
 
 
 ### db schema changes
