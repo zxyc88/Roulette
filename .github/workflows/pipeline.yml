@@ -38,10 +38,10 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         with:
-          args: container:push -a roulette-success web
+          args: container:push -a roulette-win web
       - name: release
         uses: actions/heroku@master
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         with:
-          args: container:release -a roulette-success web
+          args: container:release -a roulette-win web
