@@ -21,10 +21,8 @@ public class RouletteService {
     @Autowired
     DataService dataService;
 
-    public List<Block> getData(ViewData viewData){
-        Dealer dealer = dealerRepository.findByName(viewData.getDealer().getName());
-        List<ViewData> viewDatas = viewDataRepository.findByDealer(dealer);
-        return dataService.bestNumbers(viewDatas);
+    public Information getData(ViewData viewData){
+        return dataService.bestNumbers(viewData);
     }
 
     public boolean addData(ViewData viewdata)

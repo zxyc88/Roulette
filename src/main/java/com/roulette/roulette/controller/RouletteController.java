@@ -2,12 +2,14 @@ package com.roulette.roulette.controller;
 
 import com.roulette.roulette.model.Block;
 import com.roulette.roulette.model.Dealer;
+import com.roulette.roulette.model.Information;
 import com.roulette.roulette.model.ViewData;
 import com.roulette.roulette.service.RouletteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.View;
 import java.util.List;
 
 @Controller
@@ -22,7 +24,7 @@ public class RouletteController {
     }
 
     @RequestMapping(value="/getData", method = RequestMethod.GET)
-    public @ResponseBody List<Block> getData(@RequestParam String dealer,  @RequestParam int start){
+    public @ResponseBody Information getData(@RequestParam String dealer,  @RequestParam int start){
         ViewData viewData = new ViewData();
         viewData.setDealer(new Dealer(dealer));
         viewData.setStartAt(start);

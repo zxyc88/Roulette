@@ -2,57 +2,61 @@ package com.roulette.roulette.model;
 
 import java.util.ArrayList;
 
-import static com.roulette.roulette.model.Colour.GREEN;
-import static com.roulette.roulette.model.Colour.RED;
-import static com.roulette.roulette.model.Colour.BLACK;
-
 
 public class RouletteWheel {
 
-    private final static ArrayList<Block> wheelNumbers = new ArrayList<>();
+    private final static ArrayList<Integer> theWheel = new ArrayList<>();
 
     public RouletteWheel(){
-        wheelNumbers.add(new Block("00"));
-        wheelNumbers.add(new Block("27"));
-        wheelNumbers.add(new Block("10"));
-        wheelNumbers.add(new Block("25"));
-        wheelNumbers.add(new Block("29"));
-        wheelNumbers.add(new Block("12"));
-        wheelNumbers.add(new Block("8"));
-        wheelNumbers.add(new Block("19"));
-        wheelNumbers.add(new Block("31"));
-        wheelNumbers.add(new Block("18"));
-        wheelNumbers.add(new Block("6"));
-        wheelNumbers.add(new Block("21"));
-        wheelNumbers.add(new Block("33"));
-        wheelNumbers.add(new Block("16"));
-        wheelNumbers.add(new Block("4"));
-        wheelNumbers.add(new Block("23"));
-        wheelNumbers.add(new Block("35"));
-        wheelNumbers.add(new Block("14"));
-        wheelNumbers.add(new Block("2"));
-        wheelNumbers.add(new Block("0"));
-        wheelNumbers.add(new Block("28"));
-        wheelNumbers.add(new Block("9"));
-        wheelNumbers.add(new Block("26"));
-        wheelNumbers.add(new Block("30"));
-        wheelNumbers.add(new Block("11"));
-        wheelNumbers.add(new Block("7"));
-        wheelNumbers.add(new Block("20"));
-        wheelNumbers.add(new Block("32"));
-        wheelNumbers.add(new Block("17"));
-        wheelNumbers.add(new Block("5"));
-        wheelNumbers.add(new Block("22"));
-        wheelNumbers.add(new Block("34"));
-        wheelNumbers.add(new Block("15"));
-        wheelNumbers.add(new Block("3"));
-        wheelNumbers.add(new Block("24"));
-        wheelNumbers.add(new Block("36"));
-        wheelNumbers.add(new Block("13"));
-        wheelNumbers.add(new Block("1"));
+        theWheel.add(37);
+        theWheel.add(27);
+        theWheel.add(10);
+        theWheel.add(25);
+        theWheel.add(29);
+        theWheel.add(12);
+        theWheel.add(8);
+        theWheel.add(19);
+        theWheel.add(31);
+        theWheel.add(18);
+        theWheel.add(6);
+        theWheel.add(21);
+        theWheel.add(33);
+        theWheel.add(16);
+        theWheel.add(4);
+        theWheel.add(23);
+        theWheel.add(35);
+        theWheel.add(14);
+        theWheel.add(2);
+        theWheel.add(0);
+        theWheel.add(28);
+        theWheel.add(9);
+        theWheel.add(26);
+        theWheel.add(30);
+        theWheel.add(11);
+        theWheel.add(7);
+        theWheel.add(20);
+        theWheel.add(32);
+        theWheel.add(17);
+        theWheel.add(5);
+        theWheel.add(22);
+        theWheel.add(34);
+        theWheel.add(15);
+        theWheel.add(3);
+        theWheel.add(24);
+        theWheel.add(36);
+        theWheel.add(13);
+        theWheel.add(1);
     }
 
-    public static ArrayList<Block> getWheelNumbers() {
-        return wheelNumbers;
+    public static ArrayList<Integer> getTheWheel() {
+        return theWheel;
+    }
+
+    public int getWheelIndex(Integer number){
+        return theWheel.indexOf(number);
+    }
+
+    public int getWheelNumber(Integer number){
+        return theWheel.get(number);
     }
 }

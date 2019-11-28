@@ -22,6 +22,22 @@ public class ViewData {
     @Column(name="delta")
     private Double delta;
 
+    @Column(name="direction")
+    private String direction;
+
+    @Column(name="sd_delta")
+    private Double sdDelta;
+
+
+    public ViewData(){}
+
+    public ViewData(Dealer dealer, Integer startAt)
+    {
+        this.dealer = dealer;
+        this.startAt = startAt;
+    }
+
+
     public long getId() {
         return id;
     }
@@ -52,5 +68,29 @@ public class ViewData {
 
     public void setFinishAt(Integer finishAt) {
         this.finishAt = finishAt;
+    }
+
+    public Double getDelta() {
+        return delta;
+    }
+
+    public void setDelta(Double delta) {
+        this.delta = delta;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public Double getSdDelta() {
+        return sdDelta;
+    }
+
+    public void setSdDelta(Double sdDelta) {
+        this.sdDelta = sdDelta;
     }
 }

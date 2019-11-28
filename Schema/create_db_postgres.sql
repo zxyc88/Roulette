@@ -8,7 +8,10 @@ CREATE TABLE public."dealers"
 CREATE TABLE public."view_data"
 (
     id serial primary key,
-	  dealer_id integer NOT NULL REFERENCES dealers (id),
+	dealer_id integer NOT NULL REFERENCES dealers (id),
     start_at numeric(5),
-    finish_at numeric(5)
+    finish_at numeric(5),
+    delta double precision(10),
+    direction varchar(10),
+    sdDelta double precision(10)
 );
