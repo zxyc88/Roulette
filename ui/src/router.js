@@ -10,6 +10,11 @@ export default new Router({
       path: "/",
       name: "mainPage",
       component: MainPage
-    }
+    },
+     {
+       path: '/index.html',
+       name: 'mainPage',
+       component: MainPage
+     }
   ]
 });
