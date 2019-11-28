@@ -20,7 +20,7 @@
                              dark
                              v-on="on"
                            >
-                             select dealer
+                                Select Dealer
                            </v-btn>
                          </template>
                          <v-list>
@@ -52,8 +52,6 @@
                                                    ></v-text-field>
                     </v-list-item-title>
                           <v-btn rounded color="error" dark @click="addData(startAt, finishAt)">Add Data</v-btn>
-
-
                      <v-list-item-content>
                                         <v-list-item-title>
                                              <v-text-field
@@ -66,7 +64,7 @@
                                       </v-list-item-content>
          </v-list-item-content>
 
-         </v-list-item>
+       </v-list-item>
 
 
 
@@ -83,7 +81,7 @@
                                                     single-line
                                                   ></v-text-field>
                     </v-list-item-title>
-                     <v-btn rounded color="warning" dark @click="addDealer(dealer)">Add Dealer</v-btn>
+                     <v-btn rounded color="warning" dark :disabled="dealer == 1" @click="addDealer(dealer)" >Add Dealer</v-btn>
                   </v-list-item-content>
         </v-list-item>
 
@@ -94,40 +92,34 @@
       app
       clipped-left
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>Roulette</v-toolbar-title>
+         <v-toolbar-title>Roulette</v-toolbar-title>
     </v-app-bar>
 
     <v-content>
       <v-container
-        class="fill-height"
         fluid
       >
-        <v-row
-          align="center"
-          justify="center"
-          padding-left="50px"
-        >
-
             <v-list >
-              <v-subheader>Numbers</v-subheader>
               <v-list-item-group v-model="item" color="primary">
                 <v-list-item
                   v-for="(item, i) in data"
                   :key="i"
                 >
-                  <v-list-item-icon>
-                    <v-icon v-text="item.number"></v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title v-text="item.text"></v-list-item-title>
-                  </v-list-item-content>
+                    <v-list-item-content>
+                        <v-list v-text="item.dealer"></v-list>
+                     </v-list-item-content>
+
+                    <v-list-item-content>
+                      <v-list v-text="item.delta"></v-list>
+                    </v-list-item-content>
+
+                        <v-list-item-content>
+                         <v-list v-text="item.numbers"></v-list>
+                        </v-list-item-content>
+
                 </v-list-item>
               </v-list-item-group>
             </v-list>
-        </v-row>
-
-
       </v-container>
     </v-content>
 
@@ -147,7 +139,11 @@ import http from "../http-common";
       data() {
               return {
                   dealers: [],
-                  data: []
+                  data: [{
+                    "dealer": "bob",
+                    "delta": "15",
+                    "numbers": [15,25,23,25]
+                  }]
               };
           },
       methods: {
@@ -168,12 +164,21 @@ import http from "../http-common";
       selectedDealer(name){
         this.selectedDealer = name;
       },
+      getSelectedDealer(){
+        return this.selectedDealer;
+      },
       addDealer(name){
             var params = {"name":name};
             http.post("/addDealer",params)
                  .then(response => {
                  this.data = response.data;
              });
+      },
+      isAddButtonDisabled(dealer){
+        if (dealer){
+            return false;
+        }
+        return true;
       }
 
       },

@@ -16,13 +16,13 @@ jobs:
           java-version: 1.11
 
       - name: Build with Maven
-        run: mvn build bootJar
+        run: mvn clean install
 
       - name: Setup node
         uses: actions/setup-node@v1.1.0
 
       - name: run ui build
-        run: cd my-app && npm install && npm run build
+        run: cd ui && npm install && npm run build
 
       - name: GitHub Action for Heroku
         uses: actions/heroku@1.0.0
@@ -38,10 +38,10 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         with:
-          args: container:push -a roulette web
+          args: container:push -a roulette-success web
       - name: release
         uses: actions/heroku@master
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         with:
-          args: container:release -a roulette web
+          args: container:release -a roulette-success web
