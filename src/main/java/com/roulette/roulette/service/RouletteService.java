@@ -56,6 +56,10 @@ public class RouletteService {
     public List<Dealer> deleteDealer(Dealer dealer){
         Dealer dealerInDb = dealerRepository.findByName(dealer.getName());
         if (dealerInDb != null){
+            List<ViewData> viewDatas = viewDataRepository.findByDealer(dealerInDb);
+            for (ViewData viewData : viewDatas){
+                viewDataRepository.delete(viewData);
+            }
             dealerRepository.delete(dealerInDb);
         }
         return getDealers();
