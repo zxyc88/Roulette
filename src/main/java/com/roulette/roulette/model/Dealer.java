@@ -24,15 +24,15 @@ public class Dealer {
     }
 
     public Dealer (String name){
-        this.name = name.toLowerCase();
+        this.name = name;
     }
 
     public String getName() {
-        return name.toLowerCase();
+        return name;
     }
 
     public void setName(String name) {
-        this.name = name.toLowerCase();
+        this.name = name;
     }
 
 }

@@ -10,6 +10,7 @@ import java.util.List;
 public interface DealerRepository extends CrudRepository<Dealer, Long> {
 
     Dealer findByName(String name);
+    Dealer findByNameContainingIgnoreCase(String name);
     List<Dealer> findAll();
 
 }

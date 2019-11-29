@@ -27,7 +27,7 @@ public class RouletteService {
 
     public boolean addData(ViewData viewdata)
     {
-        Dealer dealer = dealerRepository.findByName(viewdata.getDealer().getName());
+        Dealer dealer = dealerRepository.findByNameContainingIgnoreCase(viewdata.getDealer().getName());
         if (dealer != null) {
             viewdata.setDealer(dealer);
             ViewData viewData = viewDataRepository.save(viewdata);
@@ -45,9 +45,9 @@ public class RouletteService {
     }
 
     public List<Dealer> addDealer(Dealer dealer){
-        Dealer dealerInDb = dealerRepository.findByName(dealer.getName());
+        Dealer dealerInDb = dealerRepository.findByNameContainingIgnoreCase(dealer.getName());
         if (dealerInDb == null){
-            Dealer dealerToSave = new Dealer(dealer.getName());
+            Dealer dealerToSave = new Dealer(dealer.getName().toLowerCase());
             dealerRepository.save(dealerToSave);
         }
         return getDealers();
