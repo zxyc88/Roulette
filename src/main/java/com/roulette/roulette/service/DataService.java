@@ -94,7 +94,7 @@ public class DataService{
             deltaSum = deltaSum + delta.get(j);
             count++;
             j++;
-            if (count == 10)
+            if (count == 10 || j >= viewData.size())
             {
                 break;
             }

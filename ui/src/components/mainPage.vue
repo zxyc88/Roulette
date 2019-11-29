@@ -20,7 +20,7 @@
                              dark
                              v-on="on"
                            >
-                                Select Dealer
+                                Pokemon
                            </v-btn>
                          </template>
                          <v-list>
@@ -51,7 +51,27 @@
                                                     single-line
                                                    ></v-text-field>
                     </v-list-item-title>
-                          <v-btn rounded color="error" dark @click="addData(startAt, finishAt)">Add Data</v-btn>
+                            <div class="text-center">
+                              <v-bottom-sheet v-model="sheet">
+                                <template v-slot:activator="{ on }">
+                                  <v-btn
+                                    color="error"
+                                    dark
+                                    v-on="on"
+                                  >
+                                    Add
+                                  </v-btn>
+                                </template>
+                                <v-sheet class="text-center" height="200px">
+                                  <v-btn
+                                    color="red"
+                                    rounded
+                                    @click="addData(startAt, finishAt)"
+                                  >Confirm Add</v-btn>
+                                  <div>Add Start at {{startAt}} and finish at {{finishAt}} for {{this.selectedDealer}}</div>
+                                </v-sheet>
+                              </v-bottom-sheet>
+                            </div>
                      <v-list-item-content>
                                         <v-list-item-title>
                                              <v-text-field
@@ -60,7 +80,7 @@
                                               single-line
                                               ></v-text-field>
                                         </v-list-item-title>
-                                        <v-btn rounded color="green" dark @click="getData(finishAt)">View Data</v-btn>
+                                        <v-btn rounded color="green" dark @click="getData(startAt)">View</v-btn>
                                       </v-list-item-content>
          </v-list-item-content>
 
@@ -81,7 +101,7 @@
                                                     single-line
                                                   ></v-text-field>
                     </v-list-item-title>
-                     <v-btn rounded color="warning" dark :disabled="dealer == 1" @click="addDealer(dealer)" >Add Dealer</v-btn>
+                     <v-btn rounded color="warning" dark :disabled="dealer == 1" @click="addDealer(dealer)" >Add Pokemon</v-btn>
                   </v-list-item-content>
         </v-list-item>
 
@@ -92,17 +112,19 @@
       app
       clipped-left
     >
-         <v-toolbar-title>Roulette</v-toolbar-title>
+         <v-toolbar-title>Bababoi</v-toolbar-title>
+         <v-text>{{this.selectedDealer}}</v-text>
     </v-app-bar>
 
     <v-content>
       <v-container
         fluid
       >
+
             <v-list >
               <v-list-item-group v-model="item" color="primary">
                 <v-list-item
-                  v-for="(item, i) in data"
+                  v-for="(item, i) in information"
                   :key="i"
                 >
                     <v-list-item-content>
@@ -143,28 +165,24 @@ import http from "../http-common";
       data() {
               return {
                   dealers: [],
-                  data: [{
-                    "dealerName": "bob",
-                    "realDeltaSD": 15,
-                    "deltaSD": 5,
-                    "bestNumbers": [15,25,23,25]
-                  }]
+                  information: [],
+                  sheet: false
               };
           },
       methods: {
       getData(start) {
-                    var params = "/getData?dealer="+this.selectedDealer+"&start="+start;
-                    http.get(params)
-                            .then(response => {
-                            this.data = response.data;
-                        })
+      var params = "/getData?dealer="+this.selectedDealer+"&start="+start;
+      this.information =  http.get(params).then(response => {
+                                                         this.information = response.data;
+                                                     });
                 },
       addData(start, finish) {
             var params = {"dealer":this.selectedDealer, "startAt":start, "finishAt":finish};
             http.post("/addData",params)
                                         .then(response => {
-                                        this.data = response.data;
-                                    })
+                                            this.okay = response.data;
+                                    });
+            this.sheet  = !this.sheet
       },
       selectedDealer(name){
         this.selectedDealer = name;
@@ -176,8 +194,9 @@ import http from "../http-common";
             var params = {"name":name};
             http.post("/addDealer",params)
                  .then(response => {
-                 this.data = response.data;
+                 this.dealers = response.data;
              });
+             this.selectedDealer = name;
       },
       isAddButtonDisabled(dealer){
         if (dealer){
@@ -192,7 +211,8 @@ import http from "../http-common";
       this.dealers =  http.get("/getDealers")
                                                      .then(response => {
                                                          this.dealers = response.data;
-                                                     })
+                                                     });
+      this.selectedDealer = "xxxxXXXX";
     }
   }
 </script>

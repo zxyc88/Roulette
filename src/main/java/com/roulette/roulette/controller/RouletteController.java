@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.View;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,9 +26,12 @@ public class RouletteController {
     }
 
     @RequestMapping(value="/getData", method = RequestMethod.GET)
-    public @ResponseBody Information getData(@RequestParam String dealer,  @RequestParam int start){
+    public @ResponseBody List<Information> getData(@RequestParam String dealer,  @RequestParam int start){
         //Check if Start Number is between 0 and 37
-        return rouletteService.getData(dealer,start);
+        Information information = rouletteService.getData(dealer,start);
+        List<Information> informations = new ArrayList<>();
+        informations.add(information);
+        return informations;
     }
 
     @RequestMapping(value="/addDealer" , method = RequestMethod.POST)
