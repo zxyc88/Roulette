@@ -102,6 +102,7 @@
                                                   ></v-text-field>
                     </v-list-item-title>
                      <v-btn rounded color="warning" dark :disabled="dealer == 1" @click="addDealer(dealer)" >Add Pokemon</v-btn>
+                     <v-btn rounded color="purple" dark :disabled="dealer == 1" @click="deleteDealer(dealer)" >remove Pokemon</v-btn>
                   </v-list-item-content>
         </v-list-item>
 
@@ -197,6 +198,13 @@ import http from "../http-common";
                  this.dealers = response.data;
              });
              this.selectedDealer = name;
+      },
+      deleteDealer(name){
+      var params = {"name":name};
+                  http.post("/deleteDealer",params)
+                       .then(response => {
+                       this.dealers = response.data;
+                   });
       },
       isAddButtonDisabled(dealer){
         if (dealer){

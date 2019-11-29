@@ -39,6 +39,11 @@ public class RouletteController {
         return rouletteService.addDealer(dealer);
     }
 
+    @RequestMapping(value="/deleteDealer" , method = RequestMethod.POST)
+    public @ResponseBody List<Dealer> deleteDealer(@RequestBody Dealer dealer){
+        return rouletteService.deleteDealer(dealer);
+    }
+
     @RequestMapping(value="/getDealers", method = RequestMethod.GET)
     public @ResponseBody List<Dealer> getDealers ()
     {
