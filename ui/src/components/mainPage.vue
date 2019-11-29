@@ -106,15 +106,19 @@
                   :key="i"
                 >
                     <v-list-item-content>
-                        <v-list v-text="item.dealer"></v-list>
+                        <v-list v-text="item.dealerName"></v-list>
                      </v-list-item-content>
 
                     <v-list-item-content>
-                      <v-list v-text="item.delta"></v-list>
+                      <v-list v-text="item.realDeltaSD"></v-list>
                     </v-list-item-content>
 
+                     <v-list-item-content>
+                          <v-list v-text="item.deltaSD"></v-list>
+                      </v-list-item-content>
+
                         <v-list-item-content>
-                         <v-list v-text="item.numbers"></v-list>
+                         <v-list v-text="item.bestNumbers"></v-list>
                         </v-list-item-content>
 
                 </v-list-item>
@@ -140,9 +144,10 @@ import http from "../http-common";
               return {
                   dealers: [],
                   data: [{
-                    "dealer": "bob",
-                    "delta": "15",
-                    "numbers": [15,25,23,25]
+                    "dealerName": "bob",
+                    "realDeltaSD": 15,
+                    "deltaSD": 5,
+                    "bestNumbers": [15,25,23,25]
                   }]
               };
           },

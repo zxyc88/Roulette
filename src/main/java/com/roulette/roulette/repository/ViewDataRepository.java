@@ -11,5 +11,6 @@ import java.util.List;
 public interface ViewDataRepository extends CrudRepository<ViewData, Long> {
 
     List<ViewData> findByDealer(Dealer dealer);
+
 }
 

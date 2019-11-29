@@ -20,15 +20,14 @@ public class RouletteController {
 
     @RequestMapping(value="/addData" , method = RequestMethod.POST)
     public @ResponseBody boolean addData (@RequestBody ViewData viewdata){
+        //Check if Start/End are Numbers between 0 and 37
         return rouletteService.addData(viewdata);
     }
 
     @RequestMapping(value="/getData", method = RequestMethod.GET)
     public @ResponseBody Information getData(@RequestParam String dealer,  @RequestParam int start){
-        ViewData viewData = new ViewData();
-        viewData.setDealer(new Dealer(dealer));
-        viewData.setStartAt(start);
-        return rouletteService.getData(viewData);
+        //Check if Start Number is between 0 and 37
+        return rouletteService.getData(dealer,start);
     }
 
     @RequestMapping(value="/addDealer" , method = RequestMethod.POST)

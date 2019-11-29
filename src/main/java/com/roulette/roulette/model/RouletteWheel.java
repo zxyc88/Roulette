@@ -59,4 +59,8 @@ public class RouletteWheel {
     public int getWheelNumber(Integer number){
         return theWheel.get(number);
     }
+
+    public int getWheelSize(){
+        return theWheel.size();
+    }
 }

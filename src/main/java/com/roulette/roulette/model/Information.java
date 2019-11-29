@@ -5,8 +5,9 @@ import java.util.List;
 public class Information {
 
     private String dealerName;
-    private Integer delta;
+    private Integer avgDelta;
     private Integer deltaSD;
+    private Integer realDeltaSD;
     private List<Integer> bestNumbers;
 
 
@@ -18,19 +19,31 @@ public class Information {
         this.dealerName = dealerName;
     }
 
-    public Integer getDelta() {
-        return delta;
+    public Integer getAvgDelta() {
+        return avgDelta;
     }
 
-    public void setDelta(Integer delta) {
-        this.delta = delta;
+    public void setAvgDelta(Integer avgDelta) {
+        this.avgDelta = avgDelta;
     }
 
     public Integer getDeltaSD() {
         return deltaSD;
     }
 
+    public Integer getRealDeltaSD() {
+        return realDeltaSD;
+    }
+
+    public void setRealDeltaSD(Integer realDeltaSD) {
+        this.realDeltaSD = realDeltaSD;
+    }
+
     public void setDeltaSD(Integer deltaSD) {
+        if (deltaSD > 6){
+            this.deltaSD = 6;
+            return;
+        }
         this.deltaSD = deltaSD;
     }
 

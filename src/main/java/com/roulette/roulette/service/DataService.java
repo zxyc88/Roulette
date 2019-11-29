@@ -1,6 +1,7 @@
 package com.roulette.roulette.service;
 
 import com.roulette.roulette.model.*;
+import com.roulette.roulette.repository.DealerRepository;
 import com.roulette.roulette.repository.ViewDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,29 +16,32 @@ public class DataService{
 
     @Autowired
     ViewDataRepository viewDataRepository;
+    @Autowired
+    DealerRepository dealerRepository;
 
     private RouletteWheel rouletteWheel = new RouletteWheel();
 
 
-    public Information bestNumbers(ViewData viewData){
-        //This is being passed ALL the data for ONE dealer and request the best numbers as a List
+    public Information bestNumbers(String dealerName, int start){
         Information information = new Information();
+        Dealer dealer = dealerRepository.findByName(dealerName);
+        if (dealer == null) {
+            return information;
+        }
 
-        String dealerName = viewData.getDealer().getName();
-        double delta = viewData.getDelta();
-        double deltaSD = viewData.getSdDelta();
-        int deltaSDInt = (int)ceil(deltaSD);
-        int startAt = viewData.getStartAt();
-        int startAtIndex = rouletteWheel.getWheelIndex(startAt);
-        int deltaInt = (int) delta;
+        List<ViewData> viewData = viewDataRepository.findByDealer(dealer);
+        information = getInformation(viewData);
+
+        int startIndex = rouletteWheel.getWheelIndex(start);
 
         List<Integer> bestNumbers = new ArrayList<>();
-        for (int i = (startAtIndex + deltaInt - deltaSDInt); i < ((2*deltaInt)+1);i++){
-            bestNumbers.add(rouletteWheel.getWheelNumber(i));
+        int startingIndex = (startIndex + information.getAvgDelta() - information.getDeltaSD());
+        int endingIndex = startingIndex + (((2*information.getDeltaSD())+1));
+
+        for (int i = startingIndex; i < endingIndex; i++){
+            bestNumbers.add(rouletteWheel.getWheelNumber(i % 37));
         }
         information.setDealerName(dealerName);
-        information.setDelta(deltaInt);
-        information.setDeltaSD(deltaSDInt);
         information.setBestNumbers(bestNumbers);
         return information;
     }
@@ -49,35 +53,43 @@ public class DataService{
         Integer endingIndex = rouletteWheel.getWheelIndex(viewData.getFinishAt());
         Double delta;
         String deltaDirection;
-        if (endingIndex > startIndex)
+
+        if (endingIndex >= startIndex && endingIndex != null)
         {
             delta = (double)(endingIndex - startIndex);
             deltaDirection = "Right";
         }
-        else
+        else if (endingIndex != null)
         {
-            delta = (double)(startIndex - endingIndex);
-            deltaDirection = "Left";
+            delta = (double)((endingIndex - startIndex)+rouletteWheel.getWheelSize());
+            deltaDirection = "Right";
+            //The LeftDirection would be
+            //delta = (double)(startIndex - endingIndex)
+        }
+        else {
+            delta = null;
+            deltaDirection = "Null";
         }
         viewData.setDelta(delta);
         viewData.setDirection(deltaDirection);
 
         viewDataRepository.save(viewData);
         List<ViewData> dataForDealer = viewDataRepository.findByDealer(viewData.getDealer());
-        Double sdDelta = getSDDelta(dataForDealer);
+        Double sdDelta = (double) getInformation(dataForDealer).getDeltaSD();
         viewData.setSdDelta(sdDelta);
         viewDataRepository.save(viewData);
     }
 
-    private double getSDDelta(List<ViewData> viewData){
+    private Information getInformation(List<ViewData> viewData){
+        Information information = new Information();
         int count = 0;
         List<Double> delta = new ArrayList<>();
         double deltaSum = 0;
         double sdDelta;
+        int j = 0;
 
-        for (int i = viewData.size()-1; i > 0 ; i--)
+        for (int i = viewData.size()-1; i >= 0 ; i--)
         {
-            int j = 0;
             delta.add(viewData.get(i).getDelta());
             deltaSum = deltaSum + delta.get(j);
             count++;
@@ -91,10 +103,14 @@ public class DataService{
         double runningTotal = 0;
 
         for (int i = 0; i < delta.size(); i++) {
-            runningTotal = delta.get(i) - (deltaSum/count);
+            double calc= Math.pow((delta.get(i) - (deltaSum/count)),2);
+            runningTotal = runningTotal + calc;
         }
 
         sdDelta = sqrt(runningTotal / (count - 1));
-        return sdDelta;
+        information.setAvgDelta((int)ceil(deltaSum/count));
+        information.setRealDeltaSD((int)ceil(sdDelta));
+        information.setDeltaSD((int)ceil(sdDelta));
+        return information;
     }
 }

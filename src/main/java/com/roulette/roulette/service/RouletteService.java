@@ -21,8 +21,8 @@ public class RouletteService {
     @Autowired
     DataService dataService;
 
-    public Information getData(ViewData viewData){
-        return dataService.bestNumbers(viewData);
+    public Information getData(String dealerName, int start){
+        return dataService.bestNumbers(dealerName,start);
     }
 
     public boolean addData(ViewData viewdata)
@@ -40,8 +40,7 @@ public class RouletteService {
         return false;
     }
 
-    public List<Dealer> getDealers()
-    {
+    public List<Dealer> getDealers(){
         return dealerRepository.findAll();
     }
 
